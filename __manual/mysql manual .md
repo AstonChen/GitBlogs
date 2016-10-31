@@ -31,12 +31,55 @@
 	* `SHOW CREATE TABLE table_name;` 查看表的创建语句。
 
 ### DML：操作语句，insert、delete、update、select...
+* 插入：
+	* `INSERT INTO table_name VALUES (value1, value2...);`
+* 更新：
+	* `UPDATE table_name SET age=26 WHERE name='chenjian';`
+* 删除：
+	* `DELETE FROM table_name WHERE age=26;`
+* 查询：
+	* `SELECT * FROM table_name;`
+	* `SELECT * FROM table_name WHERE name='chenjian';`
+	* `SELECT * FROM table_name ORDER BY name ASC|DESC;` 按照age生序降序排列。
+	* `SELECT * FROM table_name ORDER BY name, age ASC|DESC;` 按照name生序降序排列，如果一样就按age排序。
+	* `SELECT * FROM table_name limit 1,3;` 从第2条开始取3条。
+	* `SELECT COUNT(*) FROM table_name;` 取出记录数。
+	* `SELECT age, count(1) FROM table_name GROUP BY age;` 以age分类，取出每种age的数量。
+	* `SELECT age, count(1) FROM table_name GROUP BY age WITH ROLLUP;` 以age分类，取出每种age的数量, 同时计算不同age分类的总数量值。
+	* `SELECT age, count(1) FROM table_name GROUP BY age HAVING age>26;` 以age分类，取出每种age大于26的数量。
+	* `SELECT MAX(age), MIN(age), SUM(age),AVG(age) FROM table_name;`
+* 内连接：仅选出两张表中互相匹配的记录。
+	* `SELECT A.*, B.* FROM A,B WHERE A.id=B.id;` 仅取出相等的值。
+	* `SELECT A.*, B.* FROM A INNER JOIN B ON A.id=B.id;` 仅取出相等的值。
+* 外连接：全部取出来匹配,包括（左连接，右连接）。
+	* 左连接：包含左表中所有的数据，甚至在右表中不匹配的数据。
+	* 右连接：包含右表中所有的数据，甚至在左表中不匹配的数据。
+	* `SELECT A.*,B.* FROM A LEFT JOIN B ON A.id=B.id;` 
+	* `SELECT A.*,B.* FROM A RIGHT JOIN B ON A.id=B.id;` 
+* 子查询：
+	* `SELECT * FROM A WHERE id in (SELECT id FROM B);` A的id只要在B中有，就列出来。
+* 记录联合：UNION ALL将结果直接合并，UNION会去重。
+	* `SELECT id FROM A UNION ALL SELECT id FROM B;` 把A和B中的id合并。
+	* `SELECT id FROM A UNION SELECT id FROM B;` 把A和B中的id合并，重复的删除掉。
 
 ### DCL：控制语句，grant、revoke...
+### count(1)与count(*)比较：	
+	 
+* 如果你的数据表没有主键，那么count(1)比count(*)快。
+* 如果你的表只有一个字段的话那count(*)就是最快的啦。
+
+### 数据类型：
+
+|类型|字节|范围|备注|
+| --- |---| ---|---|
+|TinyInt|1|有符号：-128～127<br>无符号：0～225||
+|SmallInt|2|有符号：-32768～21767<br>无符号：0～65535||
+|MediumInt|3|有符号：-8388608～8388607<br>无符号：0～1677215||
+|Int, Integer|4|有符号：-2147483648～2147483647<br>无符号：0～4294967295||
+|BigInt|8|有符号：-9223372036854775808～9223372036854775807<br>无符号：0～18446744073709551615||
+|||||
+|||||
+|||||
 
 
-### 其他：
-* `show databases;`
-* `use test1;`
-* `show tables;`
 
