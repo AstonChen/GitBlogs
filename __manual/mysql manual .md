@@ -77,9 +77,67 @@
 |MediumInt|3|有符号：-8388608～8388607<br>无符号：0～1677215||
 |Int, Integer|4|有符号：-2147483648～2147483647<br>无符号：0～4294967295||
 |BigInt|8|有符号：-9223372036854775808～9223372036854775807<br>无符号：0～18446744073709551615||
-|||||
+|Float|4|||
+|Double|8|||
+|Decimal(M, D)|M+2|||
+|char|M|0~255||
+|varchar||0~65535||
 |||||
 |||||
 
+
+
+### 时间：
+* `DATE;` YYYY-MM-DD
+* `TIME;` HH:MM:SS
+* `DATETIME;` YYYY-MM-DD HH:MM:SS
+* `TIMESTAMP;` YYYYMMDDHHMMSS
+* `YEAR;` YYYY
+* `now();` 当前DATETIME。
+
+### 常用函数：
+* `concat(s1, s2, s3...);` 连城一个整的字符串。
+* `insert(str, x, y, instr);` 把str从第x位开始到y个长度换成instr。
+* `lower(str);` 变小写。
+* `upper(str);` 变大写。
+* `left(str, x);` 返回左边x个字符串。
+* `right(str, x);` 返回右边x个字符串。
+* `lpad(str, n, pad);` 对str左边进行填充，直到n个字符长度。
+* `rpad(str, n, pad);` 对str右边进行填充，直到n个字符长度。
+* `ltrim(str);` 去掉左侧空格。
+* `rtrim(str);` 去掉右侧空格。
+* `repeat(str, x);` 把str重复x次。
+* `replace(str, a, b);` 把str中的a换成b。
+* `strcmp(s1, s2);` 比较s1和s2.
+* `trim(str);` 去掉首位空格。
+* `substring(str, x, y);` 返回str中从x位置起y个字符长度。
+* `abs(x);` 取x的绝对值。
+* `ceil(x);` 返回大于x的最小整数。
+* `floor(x);` 返回小于x的最大整数。
+* `mod(x, y);` 返回x/y的值。
+* `rand();` 返回0～1之间的随机值。
+* `round(x, y);` 返回x的四舍五入的y位小数的值。
+* `truncate(x, y);` 返回x，但是只保留y位小数。
+* `curdate();` 当前日期。
+* `curtime();` 当前时间。
+* `now();` 当前日期和时间。
+* `unix_timestamp(now());` 当前时间戳。 
+* `if(value, t f);` value是真的话，返回t，否则返回f。
+* `isnull(value1, value2);` 如果value1不为空就返回value1，否则返回value2。`
+* `(, );`
+* `(, );`
+* `(, );`
+* `(, );`
+* `(, );`
+* `(, );`
+
+
+### PS:
+* `int`与`int(5) zerofill;` int(5)要求最少5个位子，没有填充满就用0来填充，超过了就算了。
+* `PRIMARK KEY(id, name);` 定义主键。
+* `decimal(M, D)`比float、double更精细，存储货币等。M表示整数加小数位，D表示小数位。如果用于数据库等迁移最好不要这样使用，float、double不指定参数时候精度由操作系统、硬件等支持。decimal默认10位整数，0位小数位。
+* `char`与`varchar`：char长度固定，0～255。varchar长度可变，0～65535。char(4),varchar(4)只能插入4个字符。
+* `binary`与`varbinary`：只能包含二进制字符串。
+* 正则表达式：`regexp`，`SELECT name FROM table_name WHERE name REGEXP 'jian';` 查找name里面有jian的数据。
 
 
