@@ -1,3 +1,4 @@
+## 一、基础篇：
 ### 命令：
 * `mysql -u root -p` 连接MySQL。
 * `;`或者`\g` 结束命令行。
@@ -124,10 +125,10 @@
 * `unix_timestamp(now());` 当前时间戳。 
 * `if(value, t f);` value是真的话，返回t，否则返回f。
 * `isnull(value1, value2);` 如果value1不为空就返回value1，否则返回value2。`
-* `(, );`
-* `(, );`
-* `(, );`
-* `(, );`
+* `database();` 当前数据库。
+* `version();` 当前数据库版本。
+* `user();` 登陆者的用户名。
+* `MD5();` md5加密。
 * `(, );`
 * `(, );`
 
@@ -139,5 +140,25 @@
 * `char`与`varchar`：char长度固定，0～255。varchar长度可变，0～65535。char(4),varchar(4)只能插入4个字符。
 * `binary`与`varbinary`：只能包含二进制字符串。
 * 正则表达式：`regexp`，`SELECT name FROM table_name WHERE name REGEXP 'jian';` 查找name里面有jian的数据。
+
+
+## 二、开发篇：
+* `CREATE TABLE table_name(.,.,.,.) ENGINE=引擎名字;` 引擎名字有：`Innodb`、`MyISAM`等。
+* `ALTER TABLE table_name ENGINE=引擎名字;`
+* `MyISAM` 不支持事务和外键，但是速度快。
+* `Innodb` 支持提交、回滚、崩溃恢复能力的事物安全。但是效率差，占用更多的磁盘空间用来保留数据和索引。
+	* `auto_increment` 自动增加列必须是索引。
+	* `prmary key(id, name);` 把id、name设为主键。
+	* `key 别名(column);` 设立column为索引，且取个别名。
+	* `	constraint `fk_B_A` FOREIGN KEY (id) REFERENCES A(id);`  在B表上面运行，把B表的id上创建一个外键，连接到A表的id，如果删除A表的id会提示错误。
+	* `alter table B drop foreign key fk_B_A;` 把B表中的外键删除掉。
+	* `	alter table B add FOREIGN KEY (B.id) REFERENCES A(A.id) on delete cascade on update cascade;` 在B表上面运行，把B表的id上创建一个外键，连接到A表的id，如果删除A表的id，B表中使用这个id的就会都被删除。
+
+
+## 三、优化篇：
+
+## 四、管理维护篇：
+
+## 五、架构篇：
 
 
