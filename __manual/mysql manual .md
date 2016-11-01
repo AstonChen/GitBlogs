@@ -150,9 +150,42 @@
 	* `auto_increment` 自动增加列必须是索引。
 	* `prmary key(id, name);` 把id、name设为主键。
 	* `key 别名(column);` 设立column为索引，且取个别名。
+	
+* 外键：
 	* `	constraint `fk_B_A` FOREIGN KEY (id) REFERENCES A(id);`  在B表上面运行，把B表的id上创建一个外键，连接到A表的id，如果删除A表的id会提示错误。
 	* `alter table B drop foreign key fk_B_A;` 把B表中的外键删除掉。
 	* `	alter table B add FOREIGN KEY (B.id) REFERENCES A(A.id) on delete cascade on update cascade;` 在B表上面运行，把B表的id上创建一个外键，连接到A表的id，如果删除A表的id，B表中使用这个id的就会都被删除。
+* 小技巧：想处理带外键的表的时候，可以先关闭外键，然后操作，之后启用：
+	* `SET FOREIGN_KEY_CHECKS=0;` 关闭。
+	* `SET FOREIGN_KEY_CHECKS=1;` 启用。
+* char(4)和varchar(4):
+	* `char(4);` 限制大小。始终占有4个字节，没有填满的使用空格在后面填满。
+	* `varchar(4);` 限制大小。假如存一个字符，则占有2个字节，始终多一个。
+* text和blob：
+	* blob用来存储二进制，例如照片。
+* 字符集：
+	* 20世纪60年代，美国ANSI组织发布ASCII字符集，采用7位编码，包括了数字、大小写、标点符号以及33个控制符号。
+	* 1991年ISO组织发布Unicode字符集，
+	* GBK 汉字字符集。
+	* 对于MySQL使用Unicode，在MySQL中就是UTF-8.
+* 索引。InnoDB一个表支持16个索引：
+	* `key 别名(column);`
+	* `CREATE INDEX 索引名 ON table_name(column(10));` 给table_name表的column列的前10个字节创建前缀索引。
+	* `DROP INDEX 索引名 ON table_name;` 删除索引。
+	* 最适合索引的列是where后面的。
+	* 使用唯一索引，索引的列的基数越大越好，例如日期比性别好，性别只有2种可能。
+* SQL的安全问题:
+	
+	```php
+	情况一：注释了sql语句：
+		$sql = "SELECT FROM user WHERE username='.$username.' AND password='.$password.'";
+		如果：http://localhost/user.php?username=xiaoming'# 
+		那么：sql中的AND后面就被注释了。
+	解决：使用PrepareStatement+Bind+variable来实现：
+		$stmt = $dbh->prepare("SELECT FROM user WHERE username=? AND password=?");
+		$stmt->execute(array($username, $password));
+		
+	```
 
 
 ## 三、优化篇：
